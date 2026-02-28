@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Dịch Tiếng Động Vật Siêu Cấp</title>
+    <style>
+        body { font-family: sans-serif; background: #eef2f3; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+        textarea { width: 100%; height: 80px; border-radius: 10px; border: 1px solid #ddd; padding: 10px; box-sizing: border-box; font-size: 16px; }
+        select, button { margin-top: 10px; padding: 12px; border-radius: 8px; border: 1px solid #ddd; width: 100%; cursor: pointer; font-size: 16px; }
+        button { background: #ff4757; color: white; border: none; font-weight: bold; }
+        button:hover { background: #ff6b81; }
+        #result { margin-top: 20px; padding: 15px; background: #f1f2f6; border-radius: 10px; min-height: 40px; color: #2f3542; font-weight: bold; text-align: left; border-left: 5px solid #ff4757; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Dịch Động Vật 🐾</h2>
+        <textarea id="input" placeholder="Nhập tiếng người..."></textarea>
+        <select id="animal">
+            <option value="dog">Tiếng Chó (Gâu gâu)</option>
+            <option value="cat">Tiếng Mèo (Meow meow)</option>
+            <option value="pig">Tiếng Heo (Éc éc)</option>
+        </select>
+        <button onclick="dichXam()">DỊCH NGAY</button>
+        <div id="result">Kết quả sẽ hiện ở đây...</div>
+    </div>
+
+    <script>
+        const sounds = {
+            dog: ["Gâu!", "Gâu gâu!", "Ẳng!", "Húuu!"],
+            cat: ["Meow~", "Miu miu!", "Grừ...", "Ngoao!"],
+            pig: ["Éc!", "Éc éc!", "Ụt ịt!"]
+        };
+
+        function dichXam() {
+            let text = document.getElementById('input').value;
+            let animal = document.getElementById('animal').value;
+            if (!text.trim()) {
+                document.getElementById('result').innerText = "Nhập chữ đi bro!";
+                return;
+            }
+            let words = text.trim().split(/\s+/);
+            let result = words.map(() => {
+                let animalSounds = sounds[animal];
+                return animalSounds[Math.floor(Math.random() * animalSounds.length)];
+            }).join(" ");
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+</html>
