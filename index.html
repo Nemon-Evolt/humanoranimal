@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI GLOBAL TRANSLATOR</title>
+    <style>
+        :root { --primary: #00f2fe; --bg: #0d1117; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: white; }
+        .lang-switcher { position: absolute; top: 20px; right: 20px; }
+        .lang-switcher select { background: #21262d; color: var(--primary); border: 1px solid #30363d; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .box { background: #161b22; padding: 30px; border-radius: 20px; border: 1px solid #30363d; width: 380px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        h2 { color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        textarea { width: 100%; height: 100px; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; color: #c9d1d9; padding: 15px; box-sizing: border-box; font-size: 16px; outline: none; }
+        .setting-label { text-align: left; font-size: 13px; color: #8b949e; margin: 15px 0 5px 0; display: block; }
+        select, button { width: 100%; padding: 12px; border-radius: 8px; border: none; font-size: 16px; cursor: pointer; }
+        select { background: #21262d; color: white; border: 1px solid #30363d; margin-bottom: 10px; }
+        button { background: var(--primary); color: #0d1117; font-weight: bold; margin-top: 10px; }
+        #result { margin-top: 20px; padding: 15px; background: rgba(0,242,254,0.05); border-radius: 10px; border-left: 4px solid var(--primary); text-align: left; min-height: 40px; color: #58a6ff; }
+    </style>
+</head>
+<body>
+
+<div class="lang-switcher">
+    <select id="uiLang" onchange="changeUILanguage()">
+        <option value="vi">🇻🇳 Tiếng Việt</option>
+        <option value="en">🇺🇸 English</option>
+    </select>
+</div>
+
+<div class="box">
+    <h2 id="title">DỊCH ĐỘNG VẬT AI</h2>
+    <textarea id="input" placeholder="Nhập tin nhắn..."></textarea>
+    
+    <span class="setting-label" id="labelAnimal">CHỌN NGÔN NGỮ ĐÍCH:</span>
+    <select id="animalType">
+        <option value="dog" id="optDog">Tiếng Chó</option>
+        <option value="cat" id="optCat">Tiếng Mèo</option>
+        <option value="alien" id="optAlien">Người Ngoài Hành Tinh</option>
+    </select>
+
+    <button onclick="translateAction()" id="btnTranslate">BẮT ĐẦU DỊCH</button>
+    <div id="result">Waiting...</div>
+</div>
+
+<script>
+    const uiData = {
+        vi: { 
+            title: "DỊCH ĐỘNG VẬT AI", 
+            placeholder: "Nhập tin nhắn...", 
+            label: "CHỌN NGÔN NGỮ ĐÍCH:", 
+            btn: "BẮT ĐẦU DỊCH", 
+            dog: "Tiếng Chó", 
+            cat: "Tiếng Mèo", 
+            alien: "Người Ngoài Hành Tinh" 
+        },
+        en: { 
+            title: "ANIMAL AI TRANSLATE", 
+            placeholder: "Type message...", 
+            label: "SELECT TARGET LANGUAGE:", 
+            btn: "TRANSLATE NOW", 
+            dog: "Dog Language", 
+            cat: "Cat Language", 
+            alien: "Alien Script" 
+        }
+    };
+
+    function changeUILanguage() {
+        const lang = document.getElementById('uiLang').value;
+        const data = uiData[lang];
+        
+        // Đổi chữ giao diện
+        document.getElementById('title').innerText = data.title;
+        document.getElementById('input').placeholder = data.placeholder;
+        document.getElementById('labelAnimal').innerText = data.label;
+        document.getElementById('btnTranslate').innerText = data.btn;
+        
+        // Đổi chữ trong menu chọn con vật
+        document.getElementById('optDog').innerText = data.dog;
+        document.getElementById('optCat').innerText = data.cat;
+        document.getElementById('optAlien').innerText = data.alien;
+    }
+
+    const animalSounds = {
+        dog: ["Gâu!", "Gâu gâu!", "Ẳng!"],
+        cat: ["Meow~", "Miu miu!", "Ngoao!"],
+        alien: ["⏃⌰", "⟟⟒", "⏚⟒", "⍜⍜"]
+    };
+
+    function translateAction() {
+        const text = document.getElementById('input').value.trim();
+        const type = document.getElementById('animalType').value;
+        if (!text) return;
+        const words = text.split(/\s+/);
+        document.getElementById('result').innerText = words.map(() => animalSounds[type][Math.floor(Math.random() * animalSounds[type].length)]).join(" ");
+    }
+</script>
+</body>
+</html>
